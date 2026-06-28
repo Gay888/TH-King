@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand King - ช่องทางติดต่อ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-left">
+            <img src="img/king.jpg" alt="Thailand King Logo" class="logo">
+            <h1 class="logo-title">Thailand King</h1>
+        </div>
+        <div class="auth-container" id="authContainer">
+            <button class="btn btn-cart" id="cartBtn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+                ตะกร้าสินค้า
+            </button>
+            <span class="user-name" id="userGreet"></span>
+            <button class="btn btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="home.html" class="nav-link"><i class="fas fa-home"></i> หน้าแรก</a></li>
+            <li class="nav-dropdown">
+                <a href="#" class="nav-link dropdown-toggle">
+                    <i class="fas fa-utensils"></i> สินค้า <i class="fas fa-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="pot.html" class="dropdown-item"><i class="fas fa-fire-burner"></i> หม้อ</a></li>
+                    <li><a href="pan.html" class="dropdown-item"><i class="fas fa-circle"></i> กระทะ</a></li>
+                    <li><a href="spoon.html" class="dropdown-item"><i class="fas fa-spoon"></i> ช้อน</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html" class="nav-link active"><i class="fas fa-address-book"></i> ช่องทางติดต่อ</a></li>
+        </ul>
+    </nav>
+
+    <main class="contact-page-main">
+        <div class="page-container">
+
+            <div class="page-breadcrumb">
+                <a href="home.html">หน้าแรก</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>ช่องทางติดต่อ</span>
+            </div>
+
+            <h2 class="page-heading"><i class="fas fa-address-book"></i> ช่องทางติดต่อ</h2>
+
+            <div class="contact-layout">
+
+                <!-- ข้อมูลร้าน -->
+                <div class="contact-info-box">
+                    <h4 class="contact-box-title">ข้อมูลร้าน Thailand King</h4>
+                    <ul class="contact-list">
+                        <li>
+                            <span class="contact-icon phone"><i class="fas fa-phone"></i></span>
+                            <div>
+                                <span class="contact-label">โทรศัพท์</span>
+                                <span class="contact-value">098-765-4321</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="contact-icon email"><i class="fas fa-envelope"></i></span>
+                            <div>
+                                <span class="contact-label">อีเมล</span>
+                                <span class="contact-value">contact@thailandking.th</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="contact-icon ig"><i class="fab fa-instagram"></i></span>
+                            <div>
+                                <span class="contact-label">Instagram</span>
+                                <span class="contact-value">@thailandking_official</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="contact-icon line"><i class="fab fa-line"></i></span>
+                            <div>
+                                <span class="contact-label">LINE</span>
+                                <span class="contact-value">@ThailandKing</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="contact-icon fb"><i class="fab fa-facebook"></i></span>
+                            <div>
+                                <span class="contact-label">Facebook</span>
+                                <span class="contact-value">Thailand King เครื่องครัว</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ฟอร์ม Feedback -->
+                <div class="feedback-box">
+                    <h4 class="contact-box-title">ส่ง Feedback ถึงเรา</h4>
+
+                    <div class="fb-form-group">
+                        <label><i class="fas fa-user"></i> ชื่อของคุณ</label>
+                        <input type="text" id="fb-name" placeholder="กรอกชื่อของคุณ">
+                    </div>
+                    <div class="fb-form-group">
+                        <label><i class="fas fa-envelope"></i> อีเมล</label>
+                        <input type="email" id="fb-email" placeholder="example@email.com">
+                    </div>
+                    <div class="fb-form-group">
+                        <label><i class="fas fa-tag"></i> หัวข้อ</label>
+                        <select id="fb-topic">
+                            <option value="">-- เลือกหัวข้อ --</option>
+                            <option value="product">สินค้า</option>
+                            <option value="service">บริการ</option>
+                            <option value="delivery">การจัดส่ง</option>
+                            <option value="other">อื่นๆ</option>
+                        </select>
+                    </div>
+                    <div class="fb-form-group">
+                        <label><i class="fas fa-star"></i> ให้คะแนน</label>
+                        <div class="star-rating" id="starRating">
+                            <span class="star" data-val="1">★</span>
+                            <span class="star" data-val="2">★</span>
+                            <span class="star" data-val="3">★</span>
+                            <span class="star" data-val="4">★</span>
+                            <span class="star" data-val="5">★</span>
+                        </div>
+                    </div>
+                    <div class="fb-form-group">
+                        <label><i class="fas fa-comment"></i> ข้อความ</label>
+                        <textarea id="fb-message" rows="5" placeholder="บอกเราว่าคุณคิดอย่างไร..."></textarea>
+                    </div>
+                    <button class="btn-submit-fb" id="submitFeedback">
+                        <i class="fas fa-paper-plane"></i> ส่ง Feedback
+                    </button>
+                    <div class="feedback-success" id="feedbackSuccess">
+                        <i class="fas fa-check-circle"></i> ขอบคุณสำหรับ Feedback ของคุณ!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>© 2026 Thailand King เครื่องครัว | All Rights Reserved</p>
+    </footer>
+
+    <!-- CART MODAL -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-box cart-modal-box">
+            <h2 class="modal-title"><i class="fas fa-shopping-cart"></i> ตะกร้าสินค้า</h2>
+            <div id="cartItems" class="cart-items-list"></div>
+            <div class="cart-total">
+                <span>รวมทั้งหมด:</span>
+                <span id="cartTotal" class="cart-total-price">฿ 0</span>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-submit" id="checkoutBtn">ชำระเงิน</button>
+                <button class="btn-cancel" id="closeCartBtn">ปิด</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="home.js"></script>
+    <script>
+        // Star rating for contact page
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.star');
+            let selectedRating = 0;
+            stars.forEach(star => {
+                star.addEventListener('mouseover', () => {
+                    const val = parseInt(star.dataset.val);
+                    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= val));
+                });
+                star.addEventListener('mouseout', () => {
+                    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= selectedRating));
+                });
+                star.addEventListener('click', () => {
+                    selectedRating = parseInt(star.dataset.val);
+                    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= selectedRating));
+                });
+            });
+            document.getElementById('submitFeedback').addEventListener('click', () => {
+                const name = document.getElementById('fb-name').value.trim();
+                const msg = document.getElementById('fb-message').value.trim();
+                if (!name || !msg) { alert('กรุณากรอกชื่อและข้อความ'); return; }
+                document.getElementById('fb-name').value = '';
+                document.getElementById('fb-email').value = '';
+                document.getElementById('fb-topic').value = '';
+                document.getElementById('fb-message').value = '';
+                selectedRating = 0;
+                stars.forEach(s => s.classList.remove('active'));
+                const el = document.getElementById('feedbackSuccess');
+                el.classList.add('show');
+                setTimeout(() => el.classList.remove('show'), 4000);
+            });
+        });
+    </script>
+</body>
+</html>

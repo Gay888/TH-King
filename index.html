@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand King</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-left">
+            <img src="img/king.jpg" alt="Thailand King" class="logo">
+            <h1 class="logo-title">Thailand King</h1>
+        </div>
+
+        <div class="auth-container" id="authContainer">
+            <button class="btn btn-login" id="openLoginBtn">Login</button>
+            <button class="btn btn-signin">Sign in</button>
+        </div>
+    </header>
+
+    <main class="content-container">
+        <div class="product-showcase">
+
+            <div class="product-col">
+                <span class="category-label">หม้อ</span>
+                <div class="image-placeholder">
+                    <img src="img/pot.jpg" alt="หม้อ" class="cross-icon">
+                </div>
+            </div>
+
+            <div class="product-col">
+                <span class="category-label">กระทะ</span>
+                <div class="image-placeholder">
+                    <img src="img/pan.jpg" alt="กระทะ" class="cross-icon">
+                </div>
+            </div>
+
+            <div class="product-col">
+                <span class="category-label">ช้อน</span>
+                <div class="image-placeholder">
+                    <img src="img/sp.jpg" alt="ช้อน" class="cross-icon">
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-box">
+            <h2 class="modal-title">เข้าสู่ระบบ</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">ชื่อผู้ใช้</label>
+                    <input type="text" id="username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="password">รหัสผ่าน</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-submit">ยืนยัน</button>
+                    <button type="button" class="btn-cancel" id="closeLoginBtn">ยกเลิก</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

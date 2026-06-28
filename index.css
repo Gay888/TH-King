@@ -1,0 +1,93 @@
+/* ===== INDEX PAGE ONLY — พื้นหลังเฉพาะหน้า index ===== */
+
+body {
+    background-color: #d4d4d4;
+}
+
+.content-container {
+    min-height: calc(100vh - 80px);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background-color: #b8b8b8; /* base middle grey */
+}
+
+/* 3-zone diagonal background */
+.content-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom right,
+        #888 0%, #888 50%,
+        transparent 50%
+    );
+    z-index: 0;
+}
+
+.content-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom left,
+        #555 0%, #555 50%,
+        transparent 50%
+    );
+    z-index: 0;
+}
+
+/* ===== PRODUCT SHOWCASE ===== */
+.product-showcase {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.product-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Label: white bg, black border, big border-radius */
+.category-label {
+    background-color: #ffffff;
+    color: #111;
+    font-size: 17px;
+    font-weight: 800;
+    padding: 8px 36px;
+    border-radius: 50px;
+    border: 3px solid #111111;
+    letter-spacing: 1px;
+    pointer-events: none;
+    user-select: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.image-placeholder {
+    width: 300px;
+    height: 300px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.cross-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 18px;
+}

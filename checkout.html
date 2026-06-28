@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand King - สั่งซื้อสินค้า</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', 'Segoe UI', Tahoma, sans-serif; }
+
+        body { background: #f0f4f0; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* ===== CHECKOUT HEADER ===== */
+        .checkout-header {
+            background: #fff;
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2e7d32;
+            cursor: pointer;
+            padding: 8px 14px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+        .btn-back:hover { background: #e8f5e9; }
+        .btn-back i { font-size: 18px; }
+
+        .checkout-header-title {
+            flex: 1;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: #111;
+            margin-right: 100px; /* offset for back button width */
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .checkout-main {
+            flex: 1;
+            max-width: 1100px;
+            margin: 32px auto;
+            width: 100%;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* ===== LEFT: ORDER SUMMARY ===== */
+        .order-panel {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: #2e7d32;
+            padding: 18px 24px;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .order-items-list {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 120px;
+        }
+
+        .order-empty {
+            text-align: center;
+            color: #aaa;
+            padding: 40px 20px;
+            font-size: 15px;
+        }
+        .order-empty i { font-size: 40px; color: #ddd; display: block; margin-bottom: 10px; }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f9faf9;
+            border: 1px solid #e8f0e8;
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+
+        .order-item-info { flex: 1; min-width: 0; }
+        .order-item-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        .order-item-unit-price { font-size: 13px; color: #888; }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border: 1.5px solid #c8e6c9;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .qty-btn {
+            background: #f1f8f1;
+            border: none;
+            width: 34px;
+            height: 34px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2e7d32;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-btn:hover { background: #c8e6c9; }
+        .qty-btn:active { transform: scale(0.93); }
+
+        .qty-num {
+            width: 36px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 800;
+            color: #111;
+            background: #fff;
+            border-left: 1.5px solid #c8e6c9;
+            border-right: 1.5px solid #c8e6c9;
+            padding: 0;
+            height: 34px;
+            line-height: 34px;
+        }
+
+        .order-item-subtotal {
+            font-size: 16px;
+            font-weight: 800;
+            color: #2e7d32;
+            min-width: 70px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .order-item-remove {
+            background: none;
+            border: none;
+            color: #e53935;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .order-item-remove:hover { background: #ffebee; }
+
+        /* ===== RIGHT: FORM PANEL ===== */
+        .form-panel {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .form-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .field-group label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 7px;
+        }
+
+        .field-group input,
+        .field-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #111;
+            background: #fafafa;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+        .field-group input:focus,
+        .field-group textarea:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46,125,50,0.1);
+            background: #fff;
+        }
+
+        /* Payment method */
+        .payment-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 12px;
+        }
+
+        .payment-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+            font-weight: 600;
+            color: #555;
+        }
+        .payment-option:hover { border-color: #81c784; background: #f1f8f1; }
+        .payment-option.selected {
+            border-color: #2e7d32;
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+        .payment-option input[type="radio"] { display: none; }
+        .payment-option i { font-size: 18px; }
+
+        /* Divider */
+        .form-divider {
+            border: none;
+            border-top: 1.5px dashed #e0e0e0;
+            margin: 4px 0;
+        }
+
+        /* Order summary totals */
+        .totals-box {
+            background: #f1f8f1;
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .totals-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .totals-row.total-price {
+            font-size: 22px;
+            font-weight: 900;
+            color: #1b5e20;
+            margin-top: 4px;
+            padding-top: 10px;
+            border-top: 2px solid #c8e6c9;
+        }
+
+        .totals-row.total-price span:first-child { font-size: 15px; color: #388e3c; font-weight: 700; }
+
+        .totals-row.total-items { font-weight: 600; color: #666; font-size: 13px; }
+
+        /* Submit button */
+        .btn-order {
+            width: 100%;
+            padding: 15px;
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+        .btn-order:hover { background: #1b5e20; transform: translateY(-2px); }
+        .btn-order:active { transform: scale(0.98); }
+        .btn-order:disabled { background: #bdbdbd; cursor: not-allowed; transform: none; }
+
+        /* Success overlay */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .success-overlay.show { display: flex; }
+
+        .success-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 48px 40px;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 38px;
+            color: #2e7d32;
+        }
+
+        .success-box h2 { font-size: 22px; color: #111; margin-bottom: 10px; }
+        .success-box p { font-size: 15px; color: #666; margin-bottom: 28px; }
+        .btn-success-back {
+            padding: 12px 32px;
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-success-back:hover { background: #1b5e20; }
+
+        @media (max-width: 720px) {
+            .checkout-main { grid-template-columns: 1fr; margin: 16px auto; }
+            .checkout-header-title { margin-right: 0; font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CHECKOUT HEADER -->
+    <header class="checkout-header">
+        <button class="btn-back" id="btnBack">
+            <i class="fas fa-chevron-left"></i> ย้อนกลับ
+        </button>
+        <h1 class="checkout-header-title"><i class="fas fa-clipboard-list"></i> สรุปคำสั่งซื้อ</h1>
+    </header>
+
+    <!-- MAIN CHECKOUT LAYOUT -->
+    <main class="checkout-main">
+
+        <!-- LEFT: Order items -->
+        <div class="order-panel">
+            <div class="panel-header">
+                <i class="fas fa-shopping-basket"></i> รายการสินค้า
+            </div>
+            <div class="order-items-list" id="orderItemsList">
+                <div class="order-empty">
+                    <i class="fas fa-shopping-cart"></i>
+                    ยังไม่มีสินค้าในตะกร้า
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Form + Totals -->
+        <div class="form-panel">
+            <div class="panel-header">
+                <i class="fas fa-file-alt"></i> ข้อมูลการจัดส่ง
+            </div>
+            <div class="form-body">
+
+                <div class="field-group">
+                    <label><i class="fas fa-user"></i> ชื่อผู้รับ</label>
+                    <input type="text" id="co-name" placeholder="กรอกชื่อ-นามสกุล">
+                </div>
+
+                <div class="field-group">
+                    <label><i class="fas fa-phone"></i> เบอร์โทร</label>
+                    <input type="tel" id="co-phone" placeholder="เช่น 098-765-4321">
+                </div>
+
+                <div class="field-group">
+                    <label><i class="fas fa-map-marker-alt"></i> ที่อยู่จัดส่ง</label>
+                    <input type="text" id="co-address" placeholder="บ้านเลขที่, ถนน, แขวง/ตำบล, เขต/อำเภอ, จังหวัด">
+                </div>
+
+                <hr class="form-divider">
+
+                <div>
+                    <p class="payment-label"><i class="fas fa-wallet"></i> วิธีชำระเงิน</p>
+                    <div class="payment-options">
+                        <label class="payment-option" id="opt-cash">
+                            <input type="radio" name="payment" value="cash">
+                            <i class="fas fa-money-bill-wave"></i> เงินสด
+                        </label>
+                        <label class="payment-option" id="opt-transfer">
+                            <input type="radio" name="payment" value="transfer">
+                            <i class="fas fa-university"></i> เงินโอน
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="form-divider">
+
+                <!-- Totals -->
+                <div class="totals-box">
+                    <div class="totals-row total-price">
+                        <span>ราคารวมทั้งหมด</span>
+                        <span id="coTotal">฿ 0</span>
+                    </div>
+                    <div class="totals-row total-items">
+                        <span>จำนวนสินค้าทั้งหมด</span>
+                        <span id="coTotalQty">0 ชิ้น</span>
+                    </div>
+                </div>
+
+                <button class="btn-order" id="btnOrder">
+                    <i class="fas fa-check-circle"></i> สั่งซื้อ
+                </button>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- SUCCESS OVERLAY -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-box">
+            <div class="success-icon"><i class="fas fa-check"></i></div>
+            <h2>สั่งซื้อสำเร็จ!</h2>
+            <p>ขอบคุณที่ไว้วางใจ Thailand King<br>เราจะจัดส่งสินค้าให้โดยเร็วที่สุด</p>
+            <button class="btn-success-back" id="btnSuccessBack">
+                <i class="fas fa-home"></i> กลับหน้าหลัก
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ===== Load cart from sessionStorage =====
+        let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+
+        // Group items: { name, price, qty }
+        let orderItems = [];
+        cart.forEach(item => {
+            const existing = orderItems.find(o => o.name === item.name && o.price === item.price);
+            if (existing) existing.qty++;
+            else orderItems.push({ name: item.name, price: item.price, qty: 1 });
+        });
+
+        function syncCartFromOrder() {
+            const flat = [];
+            orderItems.forEach(item => {
+                for (let i = 0; i < item.qty; i++) flat.push({ name: item.name, price: item.price });
+            });
+            sessionStorage.setItem('cart', JSON.stringify(flat));
+        }
+
+        function calcTotal() {
+            return orderItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+        }
+
+        function calcTotalQty() {
+            return orderItems.reduce((sum, item) => sum + item.qty, 0);
+        }
+
+        function updateTotals() {
+            document.getElementById('coTotal').textContent = `฿ ${calcTotal().toLocaleString()}`;
+            document.getElementById('coTotalQty').textContent = `${calcTotalQty()} ชิ้น`;
+        }
+
+        function renderOrder() {
+            const list = document.getElementById('orderItemsList');
+            if (orderItems.length === 0) {
+                list.innerHTML = `<div class="order-empty"><i class="fas fa-shopping-cart"></i>ยังไม่มีสินค้าในตะกร้า</div>`;
+            } else {
+                list.innerHTML = orderItems.map((item, i) => `
+                    <div class="order-item">
+                        <div class="order-item-info">
+                            <div class="order-item-name">${item.name}</div>
+                            <div class="order-item-unit-price">฿ ${item.price.toLocaleString()} / ชิ้น</div>
+                        </div>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="changeQty(${i}, -1)"><i class="fas fa-minus"></i></button>
+                            <span class="qty-num">${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${i}, +1)"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="order-item-subtotal">฿ ${(item.price * item.qty).toLocaleString()}</div>
+                        <button class="order-item-remove" onclick="removeItem(${i})" title="ลบสินค้า"><i class="fas fa-trash"></i></button>
+                    </div>
+                `).join('');
+            }
+            updateTotals();
+            syncCartFromOrder();
+        }
+
+        window.changeQty = function(i, delta) {
+            orderItems[i].qty += delta;
+            if (orderItems[i].qty <= 0) orderItems.splice(i, 1);
+            renderOrder();
+        };
+
+        window.removeItem = function(i) {
+            orderItems.splice(i, 1);
+            renderOrder();
+        };
+
+        // Payment option toggle
+        document.querySelectorAll('.payment-option').forEach(label => {
+            label.addEventListener('click', () => {
+                document.querySelectorAll('.payment-option').forEach(l => l.classList.remove('selected'));
+                label.classList.add('selected');
+                label.querySelector('input').checked = true;
+            });
+        });
+
+        // Back button
+        document.getElementById('btnBack').addEventListener('click', () => {
+            history.back();
+        });
+
+        // Order submit
+        document.getElementById('btnOrder').addEventListener('click', () => {
+            const name = document.getElementById('co-name').value.trim();
+            const phone = document.getElementById('co-phone').value.trim();
+            const address = document.getElementById('co-address').value.trim();
+            const payment = document.querySelector('input[name="payment"]:checked');
+
+            if (orderItems.length === 0) { alert('กรุณาเพิ่มสินค้าก่อนสั่งซื้อ'); return; }
+            if (!name) { alert('กรุณากรอกชื่อผู้รับ'); return; }
+            if (!phone) { alert('กรุณากรอกเบอร์โทร'); return; }
+            if (!address) { alert('กรุณากรอกที่อยู่จัดส่ง'); return; }
+            if (!payment) { alert('กรุณาเลือกวิธีชำระเงิน'); return; }
+
+            // Clear cart
+            orderItems = [];
+            sessionStorage.setItem('cart', '[]');
+            renderOrder();
+
+            document.getElementById('successOverlay').classList.add('show');
+        });
+
+        document.getElementById('btnSuccessBack').addEventListener('click', () => {
+            window.location.href = 'home.html';
+        });
+
+        // Init
+        renderOrder();
+    </script>
+</body>
+</html>

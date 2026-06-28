@@ -1,0 +1,6 @@
+/* ===== PRODUCT PAGE OVERRIDES ===== */
+.product-page-section {
+    background: #fff;
+    padding: 48px 0 60px;
+    min-height: calc(100vh - 130px);
+}

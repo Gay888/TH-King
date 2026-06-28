@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand King - หม้อ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="product-page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-left">
+            <img src="img/king.jpg" alt="Thailand King Logo" class="logo">
+            <h1 class="logo-title">Thailand King</h1>
+        </div>
+        <div class="auth-container" id="authContainer">
+            <button class="btn btn-cart" id="cartBtn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+                ตะกร้าสินค้า
+            </button>
+            <button class="btn btn-feedback" id="feedbackNavBtn">
+                <i class="fas fa-comment-dots"></i> ส่ง Feedback
+            </button>
+            <span class="user-name" id="userGreet"></span>
+            <button class="btn btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="home.html" class="nav-link"><i class="fas fa-home"></i> หน้าแรก</a></li>
+            <li class="nav-dropdown">
+                <a href="#" class="nav-link dropdown-toggle active">
+                    <i class="fas fa-utensils"></i> สินค้า <i class="fas fa-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="pot.html" class="dropdown-item"><i class="fas fa-fire-burner"></i> หม้อ</a></li>
+                    <li><a href="pan.html" class="dropdown-item"><i class="fas fa-circle"></i> กระทะ</a></li>
+                    <li><a href="spoon.html" class="dropdown-item"><i class="fas fa-spoon"></i> ช้อน</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html" class="nav-link"><i class="fas fa-address-book"></i> ช่องทางติดต่อ</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="product-section product-page-section" id="section-products">
+            <div class="page-container">
+                <div class="page-breadcrumb">
+                    <a href="home.html">หน้าแรก</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>หม้อ</span>
+                </div>
+                <h3 class="section-title"><i class="fas fa-fire-burner"></i> หม้อ</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="img/pot.jpg" alt="หม้อสแตนเลส Premium">
+                        <div class="product-info">
+                            <h4>หม้อสแตนเลส Premium</h4>
+                            <p class="product-desc">หม้อสแตนเลสคุณภาพสูง ขนาด 24 ซม. พร้อมฝาปิด</p>
+                            <p class="product-price">฿ 890</p>
+                            <button class="btn-add-cart" onclick="addToCart('หม้อสแตนเลส Premium', 890)">
+                                <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="img/pot.jpg" alt="หม้อเคลือบ Non-stick">
+                        <div class="product-info">
+                            <h4>หม้อเคลือบ Non-stick</h4>
+                            <p class="product-desc">หม้อเคลือบสารกันติด ขนาด 20 ซม. เหมาะกับทุกเตา</p>
+                            <p class="product-price">฿ 650</p>
+                            <button class="btn-add-cart" onclick="addToCart('หม้อเคลือบ Non-stick', 650)">
+                                <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="img/pot.jpg" alt="หม้อต้มอเนกประสงค์">
+                        <div class="product-info">
+                            <h4>หม้อต้มอเนกประสงค์</h4>
+                            <p class="product-desc">หม้อขนาดใหญ่ 28 ซม. สำหรับครอบครัว</p>
+                            <p class="product-price">฿ 1200</p>
+                            <button class="btn-add-cart" onclick="addToCart('หม้อต้มอเนกประสงค์', 1200)">
+                                <i class="fas fa-cart-plus"></i> เพิ่มลงตะกร้า
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>© 2026 Thailand King เครื่องครัว | All Rights Reserved</p>
+    </footer>
+
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-box cart-modal-box">
+            <h2 class="modal-title"><i class="fas fa-shopping-cart"></i> ตะกร้าสินค้า</h2>
+            <div id="cartItems" class="cart-items-list"></div>
+            <div class="cart-total">
+                <span>รวมทั้งหมด:</span>
+                <span id="cartTotal" class="cart-total-price">฿ 0</span>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-submit" id="checkoutBtn">ชำระเงิน</button>
+                <button class="btn-cancel" id="closeCartBtn">ปิด</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>
